@@ -2,10 +2,10 @@ package ShopSimulation;
 
 public class Buyer {
 
-    private int S; //Время прихода по условию
-    private int T; //Время выбора товаров по условию
-    private int N; //Количество товаров по условию
-    private int leftTime;
+    private int S;                  //Время прихода по условию
+    private int T;                  //Время выбора товаров по условию
+    private int N;                  //Количество товаров по условию
+    private int leftTime =0;
 
     public int getS() {
         return S;
@@ -20,9 +20,7 @@ public class Buyer {
     }
 
     public void setLeftTime(int leftTime) {
-        if(leftTime>=boxOfficeTime()) {
-            this.leftTime = leftTime;
-        }
+        this.leftTime = leftTime;
     }
 
     public int getLeftTime() {

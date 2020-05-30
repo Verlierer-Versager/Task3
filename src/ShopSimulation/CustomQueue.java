@@ -19,19 +19,15 @@ public class CustomQueue {
     private Element head;
     private Element tail;
     private int size = 0;
+    Comparator<Buyer> comparator;
 
-    Comparator<Buyer> comparator = new Comparator<Buyer>() {
-        @Override
-        public int compare(Buyer b1, Buyer b2) {
-            if (b1.boxOfficeTime() == b2.boxOfficeTime()) {
-                return 0;
-            }
-            if (b1.boxOfficeTime() > b2.boxOfficeTime()) {
-                return 1;
-            }
-            return -1;
-        }
-    };
+    public CustomQueue(Comparator<Buyer> comparator) {
+        this.comparator = comparator;
+    }
+
+    public int getSize() {
+        return size;
+    }
 
     private boolean isEmpty() {
         return size == 0;
@@ -42,38 +38,39 @@ public class CustomQueue {
             head = new Element(buyer, head);
         } else {
             Element current = head;
-            //int time = head.buyer.getN();
             while (current.next != null) {
                 int t = comparator.compare(buyer, current.next.buyer);
                 switch (t) {
                     case 0:
                         if (buyer.getN() >= current.next.buyer.getN()) {
-                            current.next.next = new Element(buyer, current.next.next);
+                            current = current.next;
+                            continue;
                         } else {
                             current.next = new Element(buyer, current.next);
+                            return;
                         }
-                        break;
                     case -1:
                         current.next = new Element(buyer, current.next);
-                        break;
+                        return;
                     default:
                         current = current.next;
                         break;
                 }
             }
-            if(current.next==null){
-                tail.next=new Element(buyer, null);
-                tail=tail.next;
+            if (current.next == null) {
+                tail.next = new Element(buyer, null);
+                tail = tail.next;
             }
         }
     }
 
     private boolean isBuyerCorrect(Buyer buyer) {
-        return buyer.getN() == 0;
+        int N = buyer.getN();
+        return (N == 0);
     }
 
     public boolean addElement(Buyer buyer) {
-        if (!isBuyerCorrect(buyer)) {
+        if (isBuyerCorrect(buyer)) {
             buyer.setLeftTime(buyer.boxOfficeTime());
             return false;
         }
@@ -86,16 +83,13 @@ public class CustomQueue {
         return true;
     }
 
-    public List<Buyer> buyers(){
-        Element current = head;
-        head.buyer.setLeftTime(head.buyer.boxOfficeTime()+head.buyer.getN());
-        int time = head.buyer.
-        while (current.next!=null){
-            current.next.buyer.setLeftTime(time);
-            time+=
+    public Buyer poll() throws Exception {
+        if (!isEmpty()) {
+            Buyer current = head.buyer;
+            head = head.next;
+            size--;
+            return current;
         }
+        throw new Exception("Queue is empty!");
     }
-
-    //public void createQueue(ArrayList<Buyer> buyers){
-
 }
