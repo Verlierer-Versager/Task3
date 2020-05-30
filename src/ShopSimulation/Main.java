@@ -35,6 +35,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         System.out.print("Введите название файла: ");
-        startSimulation(scn.nextLine()); //F:\IdeaProjects\Task3aisd\src\Test.txt
+        startSimulation(scn.nextLine());
     }
 }
