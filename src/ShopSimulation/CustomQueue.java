@@ -64,16 +64,8 @@ public class CustomQueue {
         }
     }
 
-    private boolean isBuyerCorrect(Buyer buyer) {
-        int N = buyer.getN();
-        return (N == 0);
-    }
 
     public boolean addElement(Buyer buyer) {
-        if (isBuyerCorrect(buyer)) {
-            buyer.setLeftTime(buyer.boxOfficeTime());
-            return false;
-        }
         if (isEmpty()) {
             head = tail = new Element(buyer, null);
         } else {

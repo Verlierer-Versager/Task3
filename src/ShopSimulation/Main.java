@@ -2,9 +2,7 @@ package ShopSimulation;
 
 import ru.vsu.cs.util.ArrayUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -16,7 +14,7 @@ public class Main {
                 shop.addBuyer(arr[i]);
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(e.getMessage()+" "+i);
+                System.out.println(e.getMessage()+" in line "+i);
             }
         }
         showResult(shop.resultOfSimulation());
@@ -37,6 +35,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         System.out.print("Введите название файла: ");
-        startSimulation(scn.nextLine());
+        startSimulation(scn.nextLine()); //F:\IdeaProjects\Task3aisd\src\Test.txt
     }
 }

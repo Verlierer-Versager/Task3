@@ -21,20 +21,37 @@ public class Shop {
     private CustomQueue boxOffice = new CustomQueue(comparator);
     private List<Buyer> buyers = new ArrayList<>();
 
-    public void addBuyer(int[] data) throws Exception {
-        try {
-            if (!boxOffice.addElement(new Buyer().createNewBuyer(data))) {
-                buyers.add(new Buyer().createNewBuyer(data));
+    private boolean isBuyerIncorrect(Buyer buyer) {
+        int N = buyer.getN();
+        return (N == 0);
+    }
+
+    private boolean isDataCorrect(int[] arr) {
+        for (int i = 0; i < 3; i++) {
+            if (arr[i] < 0) {
+                return false;
             }
-        } catch (Exception e) {
-            throw new Exception("Buyer is incorrect");
+        }
+        return arr.length == 3;
+    }
+
+    public void addBuyer(int[] data) throws Exception {
+        if (!isDataCorrect(data)) {
+            throw new Exception("Data is incorrect");
+        }
+        Buyer buyer = new Buyer().createNewBuyer(data);
+        if (!isBuyerIncorrect(buyer)) {
+            boxOffice.addElement(buyer);
+        } else {
+            buyer.setLeftTime(buyer.boxOfficeTime());
+            buyers.add(buyer);
         }
     }
 
     public List<Buyer> resultOfSimulation() {
         int size = boxOffice.getSize();
         int time = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = buyers.size(); i < size; i++) {
             try {
                 Buyer buyer = boxOffice.poll();
                 if (buyer.boxOfficeTime() >= time) {

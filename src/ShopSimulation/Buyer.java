@@ -5,7 +5,7 @@ public class Buyer {
     private int S;                  //Время прихода по условию
     private int T;                  //Время выбора товаров по условию
     private int N;                  //Количество товаров по условию
-    private int leftTime =0;
+    private int leftTime = 0;
 
     public int getS() {
         return S;
@@ -27,16 +27,16 @@ public class Buyer {
         return leftTime;
     }
 
-    public int boxOfficeTime(){
-        return S+T;
+    public int boxOfficeTime() {
+        return S + T;
     }
 
     public Buyer createNewBuyer(int[] data) throws Exception {
         if (isBuyerDataCorrect(data)) {
             Buyer newBuyer = new Buyer();
-            newBuyer.S=data[0];
-            newBuyer.T=data[1];
-            newBuyer.N=data[2];
+            newBuyer.S = data[0];
+            newBuyer.T = data[1];
+            newBuyer.N = data[2];
             return newBuyer;
         } else {
             throw new Exception("Данные покупателя некорректны");
